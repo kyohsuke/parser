@@ -1,24 +1,28 @@
 Changelog
 =========
 
-Not released (2017-11-13)
+Not released (2017-11-26)
 -------------------------
 
 API modifications:
+ * Change relative order of insert_after_multi and insert_before_multi for non-empty ranges (#399). (Marc-Andre Lafortune)
  * parser/current: update for 2.3.5 release. (whitequark)
-
-v2.4.0.1 (2017-11-13)
----------------------
-
-API modifications:
  * parser/current: update for 2.3.4 release. (whitequark)
  * parser/current: update for Ruby 2.1.10 and 2.2.7. (Koichi ITO)
 
 Features implemented:
+ * SourceBuffer#source_range (Marc-Andre Lafortune)
+ * Range#adjust (Marc-Andre Lafortune)
+ * Range#contains?, contained?, crossing? (Marc-Andre Lafortune)
+ * Add Range#with. (Marc-André Lafortune)
+ * lexer.rl: Relax restriction spaces inside "\u{...}". This commit tracks upstream commit ruby/ruby@7e8b910. (Ilya Bylich)
+ * lexer.rl: Allow newlines in heredoc identifiers. This commit tracks upstream commit ruby/ruby@d25faa4. (Ilya Bylich)
+ * lexer.rl: allow do after cmdarg in paren. This commit tracks upstream commit ruby/ruby@046c943. (Ilya Bylich)
  * Allow rescue/else/ensure inside do/end blocks. [Feature #12906] (Ilya Bylich)
  * ruby25.y: branch parser. (Ilya Bylich)
 
 Bugs fixed:
+ * Parser::Lexer::State: Fixed #lexpop to match MRI behavior. (Ilya Bylich)
  * Source::Comment::Associator: skip -*- magic comments -*-. (Denis Defreyne)
  * lexer.rl: "- 5": allow whitespace after tUNARY_NUM. (whitequark)
  * *ruby*.y, Builders::Default: "+5": don't lose location of the "+". (whitequark)
