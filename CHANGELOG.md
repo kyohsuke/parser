@@ -1,8 +1,17 @@
 Changelog
 =========
 
-v2.5.0.1 (2018-02-21)
----------------------
+Not released (2018-02-23)
+-------------------------
+
+API modifications:
+ * Parser::Current: bump to 2.2.9 and 2.3.6. (Stan Hu)
+ * Deprecate Parser::Rewriter (Marc-Andre Lafortune)
+ * Deprecate Parser::Source::Rewriter (Marc-Andre Lafortune)
+ * Change relative order of insert_after_multi and insert_before_multi for non-empty ranges (#399). (Marc-Andre Lafortune)
+ * parser/current: update for 2.3.5 release. (whitequark)
+ * parser/current: update for 2.3.4 release. (whitequark)
+ * parser/current: update for Ruby 2.1.10 and 2.2.7. (Koichi ITO)
 
 Features implemented:
  * builders/default: __ENCODING__: emit as s(:__ENCODING__) via AST opt-in. (whitequark)
@@ -10,22 +19,6 @@ Features implemented:
  * ruby25.y: Extract begin_block rule. This commit tracks upstream commit ruby/ruby@762d23c. (Ilya Bylich)
  * ruby25.y: Allow class and method definition in the while condition. (#432) (Ilya Bylich)
  * ruby25: Allow `-> do rescue; end`. (#431) (Ilya Bylich)
-
-Bugs fixed:
- * parser/current: latest released Ruby series is 2.5.x. (whitequark)
- * builders/default: x[], x[]=1: emit as s(:index), s(:indexasgn) via AST opt-in. (whitequark)
- * lexer.rl: "#{-> foo {}}": fix parsing of interpolated lambda with open args. (Ilya Bylich)
-
-v2.5.0.0 (2018-02-16)
----------------------
-
-API modifications:
- * Parser::Current: bump to 2.2.9 and 2.3.6. (Stan Hu)
- * Deprecate Parser::Rewriter (Marc-Andre Lafortune)
- * Deprecate Parser::Source::Rewriter (Marc-Andre Lafortune)
- * Change relative order of insert_after_multi and insert_before_multi for non-empty ranges (#399). (Marc-Andre Lafortune)
-
-Features implemented:
  * parse.y: Reject brace after literal arg. This commit tracks upstream commits ruby/ruby@9987109 and ruby/ruby@7d6965f. (Ilya Bylich)
  * ruby-parse: add an option for emitting AST as JSON. (Alex Rattray)
  * Add Parser::TreeRewriter (Marc-Andre Lafortune)
@@ -40,8 +33,15 @@ Features implemented:
  * lexer.rl: Relax restriction spaces inside "\u{...}". This commit tracks upstream commit ruby/ruby@7e8b910. (Ilya Bylich)
  * lexer.rl: Allow newlines in heredoc identifiers. This commit tracks upstream commit ruby/ruby@d25faa4. (Ilya Bylich)
  * lexer.rl: allow do after cmdarg in paren. This commit tracks upstream commit ruby/ruby@046c943. (Ilya Bylich)
+ * Allow rescue/else/ensure inside do/end blocks. [Feature #12906] (Ilya Bylich)
+ * ruby25.y: branch parser. (Ilya Bylich)
 
 Bugs fixed:
+ * Parser::Source::Buffer: Fixed parsing of encoding comment when the file contains only shebang. (Ilya Bylich)
+ * ruby24.y, ruby25.y: Replicate cmdargs handling from MRI. (#453) (Ilya Bylich)
+ * parser/current: latest released Ruby series is 2.5.x. (whitequark)
+ * builders/default: x[], x[]=1: emit as s(:index), s(:indexasgn) via AST opt-in. (whitequark)
+ * lexer.rl: "#{-> foo {}}": fix parsing of interpolated lambda with open args. (Ilya Bylich)
  * Fixed magic encoding comment parsing when encoding comment is on the first line but not in the beginning. (Ilya Bylich)
  * lexer.rl: Parse '1if' as '1 if', '1rescue' as '1 rescue'. (Ilya Bylich)
  * lexer.rl: Save state before entering a block comment to enter it after =end. (Ilya Bylich)
@@ -49,25 +49,6 @@ Bugs fixed:
  * lexer.rl: Emit :&& as tSYMBEG + tANDOP, :|| as tSYMBEG + tOROP. (Ilya Bylich)
  * ruby{24,25}.y: preserve cmdarg stack around do/end block [Bug #13073]. (Mateusz Lenik)
  * Parser::Lexer::State: Fixed #lexpop to match MRI behavior. (Ilya Bylich)
-
-v2.4.0.2 (2017-11-13)
----------------------
-
-API modifications:
- * parser/current: update for 2.3.5 release. (whitequark)
-
-v2.4.0.1 (2017-11-13)
----------------------
-
-API modifications:
- * parser/current: update for 2.3.4 release. (whitequark)
- * parser/current: update for Ruby 2.1.10 and 2.2.7. (Koichi ITO)
-
-Features implemented:
- * Allow rescue/else/ensure inside do/end blocks. [Feature #12906] (Ilya Bylich)
- * ruby25.y: branch parser. (Ilya Bylich)
-
-Bugs fixed:
  * Source::Comment::Associator: skip -*- magic comments -*-. (Denis Defreyne)
  * lexer.rl: "- 5": allow whitespace after tUNARY_NUM. (whitequark)
  * *ruby*.y, Builders::Default: "+5": don't lose location of the "+". (whitequark)
